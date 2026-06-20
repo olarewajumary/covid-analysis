@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 output/
 .idea/
+data/owid-covid-data.csv
+data/covid.db
