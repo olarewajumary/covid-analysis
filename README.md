@@ -28,3 +28,11 @@ End-to-end exploratory analysis of the Our World in Data COVID-19 dataset coveri
 - SQLite
 
 ## Project structure
+
+## Data Source
+Our World in Data COVID-19 dataset, aggregated from WHO, government health ministries and the European CDC.
+Available at: https://github.com/owid/covid-19-data
+
+## Kaggle Notebook
+Full interactive notebook published on Kaggle:
+https://www.kaggle.com/code/maryolarewaju/covid-19-global-data-analysis-eda-sql-pipeline
