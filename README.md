@@ -2,7 +2,7 @@
 
 End-to-end exploratory analysis of the Our World in Data COVID-19 dataset covering 243 countries from January 2020 to August 2024. The dataset contains 67 variables across 400,000+ rows including cases, deaths, vaccinations, hospitalizations and socioeconomic indicators.
 
-**Live interactive chart:** https://olarewajumary.github.io/covid-analysis/
+**Live interactive dashboard:** https://olarewajumary.github.io/covid-analysis/ (3 interactive charts: vaccination rollout, case trends, and top countries by cases)
 
 ## What this project covers
 
