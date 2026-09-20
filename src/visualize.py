@@ -6,7 +6,7 @@ def plot_top_cases(df, output_path='output/top_cases.png'):
     top10 = latest.sort_values('total_cases', ascending=False).head(10)
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.barplot(data=top10, x='total_cases', y='location', ax=ax, palette='Reds_r')
+    sns.barplot(data=top10, x='total_cases', y='location', hue='location', legend=False, palette='Reds_r')
 
     ax.set_title('Top 10 Countries by Total COVID-19 Cases')
     ax.set_xlabel('Total Cases')
@@ -41,7 +41,7 @@ def plot_death_rate(df, output_path='output/death_rate.png'):
     top10 = latest.sort_values('total_deaths_per_million', ascending=False).head(10)
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.barplot(data=top10, x='total_deaths_per_million', y='location', ax=ax, palette='OrRd_r')
+    sns.barplot(data=top10, x='total_deaths_per_million', y='location', hue='location', legend=False, palette='OrRd_r')
 
     ax.set_title('Top 10 Countries by COVID-19 Deaths per Million')
     ax.set_xlabel('Deaths per Million')
@@ -102,7 +102,7 @@ def plot_cases_by_continent(df, output_path='output/cases_by_continent.png'):
     continent_avg = continent_avg.sort_values('total_cases_per_million', ascending=False)
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(data=continent_avg, x='continent', y='total_cases_per_million', ax=ax, palette='Blues_r')
+    sns.barplot(data=continent_avg, x='continent', y='total_cases_per_million', hue='continent', legend=False, palette='Blues_r')
 
     ax.set_title('Average COVID-19 Cases per Million by Continent')
     ax.set_xlabel('')
@@ -138,7 +138,7 @@ def plot_icu_patients(df, output_path='output/icu_patients.png'):
     top10 = peak_icu.sort_values('icu_patients_per_million', ascending=False).head(10)
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.barplot(data=top10, x='icu_patients_per_million', y='location', ax=ax, palette='Purples_r')
+    sns.barplot(data=top10, x='icu_patients_per_million', y='location', hue='location', legend=False, palette='Purples_r')
 
     ax.set_title('Top 10 Countries by Peak ICU Patients per Million')
     ax.set_xlabel('ICU Patients per Million')
@@ -219,3 +219,26 @@ def plot_interactive_vaccinations(df, output_path='output/interactive_vaccinatio
 
     fig.write_html(output_path)
     print(f"Saved: {output_path}")
+
+def plot_interactive_cases_trend(df, output_path='output/interactive_cases_trend.html'):
+    trend = df.groupby('date')['new_cases'].sum().reset_index()
+    trend['7day_avg'] = trend['new_cases'].rolling(7).mean()
+
+    fig = px.line(
+        trend, x='date', y='7day_avg',
+        title='Global New COVID-19 Cases Over Time (7-day average)')
+    fig.write_html(output_path)
+    print(f"Saved:{output_path}")  
+
+def plot_interactive_top_countries(df, output_path='output/interactive_top_countries.html'):
+    latest = df.groupby('location')['total_cases'].max().reset_index()
+    top10 = latest.sort_values('total_cases', ascending=False).head(10)
+
+    fig = px.bar(
+        top10, x='total_cases', y='location', orientation='h',
+        title='Top 10 Countries by Total COVID-19 Cases',
+        labels={'total_cases': 'Total Cases', 'location': ''}
+    )
+    fig.update_yaxes(categoryorder='total ascending')
+    fig.write_html(output_path)
+    print(f"Saved: {output_path}")            

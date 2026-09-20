@@ -73,7 +73,8 @@ from src.visualize import (plot_top_cases, plot_global_trend, plot_death_rate,
                             plot_vaccination_rollout, plot_gdp_vs_vaccination,
                             plot_cases_by_continent, plot_reproduction_rate,
                             plot_icu_patients, plot_age_vs_deaths, plot_africa_vs_europe,
-                            plot_interactive_vaccinations)
+                            plot_interactive_vaccinations, plot_interactive_cases_trend,
+                            plot_interactive_top_countries)
 
 vax_data = query(DB_PATH, """
     SELECT iso_code, location, date, people_fully_vaccinated_per_hundred
@@ -83,3 +84,5 @@ vax_data = query(DB_PATH, """
 
 vax_data['date'] = pd.to_datetime(vax_data['date'])
 plot_interactive_vaccinations(vax_data)
+plot_interactive_cases_trend(df)
+plot_interactive_top_countries(df)
